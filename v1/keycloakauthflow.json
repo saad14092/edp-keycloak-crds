@@ -1,0 +1,155 @@
+{
+  "id": "v1.edp.epam.com/v1@KeycloakAuthFlow",
+  "apiVersion": "v1.edp.epam.com/v1",
+  "kind": "KeycloakAuthFlow",
+  "description": "KeycloakAuthFlow is the Schema for the keycloak authentication flow API.",
+  "type": "object",
+  "properties": {
+    "apiVersion": {
+      "description": "APIVersion defines the versioned schema of this representation of an object.\nServers should convert recognized schemas to the latest internal value, and\nmay reject unrecognized values.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+      "type": "string",
+      "markdownDescription": "**apiVersion** (string)\n\nAPIVersion defines the versioned schema of this representation of an object.\nServers should convert recognized schemas to the latest internal value, and\nmay reject unrecognized values.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources"
+    },
+    "kind": {
+      "description": "Kind is a string value representing the REST resource this object represents.\nServers may infer this from the endpoint the client submits requests to.\nCannot be updated.\nIn CamelCase.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+      "type": "string",
+      "markdownDescription": "KeycloakAuthFlow: KeycloakAuthFlow is the Schema for the keycloak authentication flow API.\n\n**apiVersion** (string)\n\nAPIVersion defines the versioned schema of this representation of an object.\nServers should convert recognized schemas to the latest internal value, and\nmay reject unrecognized values.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources\n\n**kind** (string)\n\nKind is a string value representing the REST resource this object represents.\nServers may infer this from the endpoint the client submits requests to.\nCannot be updated.\nIn CamelCase.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds\n\n**metadata** (object)\n\nundefined\n\n**spec** (object)\n\nKeycloakAuthFlowSpec defines the desired state of KeycloakAuthFlow.\n\n**status** (object)\n\nKeycloakAuthFlowStatus defines the observed state of KeycloakAuthFlow.\n\n"
+    },
+    "metadata": {
+      "type": "object",
+      "markdownDescription": "**metadata** (object)\n\n"
+    },
+    "spec": {
+      "description": "KeycloakAuthFlowSpec defines the desired state of KeycloakAuthFlow.",
+      "properties": {
+        "alias": {
+          "description": "Alias is display name for authentication flow.",
+          "type": "string"
+        },
+        "authenticationExecutions": {
+          "description": "AuthenticationExecutions is list of authentication executions for this auth flow.",
+          "items": {
+            "description": "AuthenticationExecution defines keycloak authentication execution.",
+            "properties": {
+              "alias": {
+                "description": "Alias is display name for this execution.",
+                "type": "string"
+              },
+              "authenticator": {
+                "description": "Authenticator is name of authenticator.",
+                "type": "string"
+              },
+              "authenticatorConfig": {
+                "description": "AuthenticatorConfig is configuration for authenticator.",
+                "nullable": true,
+                "properties": {
+                  "alias": {
+                    "description": "Alias is display name for authenticator config.",
+                    "type": "string"
+                  },
+                  "config": {
+                    "additionalProperties": {
+                      "type": "string"
+                    },
+                    "description": "Config is configuration for authenticator.",
+                    "type": "object"
+                  }
+                },
+                "type": "object"
+              },
+              "authenticatorFlow": {
+                "description": "AuthenticatorFlow is true if this is auth flow.",
+                "type": "boolean"
+              },
+              "priority": {
+                "description": "Priority is priority for this execution. Lower values have higher priority.",
+                "type": "integer"
+              },
+              "requirement": {
+                "description": "Requirement is requirement for this execution. Available options: REQUIRED, ALTERNATIVE, DISABLED, CONDITIONAL.",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "nullable": true,
+          "type": "array"
+        },
+        "builtIn": {
+          "description": "BuiltIn is true if this is built-in auth flow.",
+          "type": "boolean"
+        },
+        "childRequirement": {
+          "description": "ChildRequirement is requirement for child execution. Available options: REQUIRED, ALTERNATIVE, DISABLED, CONDITIONAL.",
+          "type": "string"
+        },
+        "childType": {
+          "description": "ChildType is type for auth flow if it has a parent, available options: basic-flow, form-flow",
+          "type": "string"
+        },
+        "description": {
+          "description": "Description is description for authentication flow.",
+          "type": "string"
+        },
+        "parentName": {
+          "description": "ParentName is name of parent auth flow.",
+          "type": "string"
+        },
+        "providerId": {
+          "description": "ProviderID for root auth flow and provider for child auth flows.",
+          "type": "string"
+        },
+        "realmRef": {
+          "description": "RealmRef is reference to Realm custom resource.",
+          "properties": {
+            "kind": {
+              "default": "KeycloakRealm",
+              "description": "Kind specifies the kind of the Keycloak resource.",
+              "enum": [
+                "KeycloakRealm",
+                "ClusterKeycloakRealm"
+              ],
+              "type": "string"
+            },
+            "name": {
+              "description": "Name specifies the name of the Keycloak resource.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "name"
+          ],
+          "type": "object"
+        },
+        "topLevel": {
+          "description": "TopLevel is true if this is root auth flow.",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "alias",
+        "builtIn",
+        "providerId",
+        "realmRef",
+        "topLevel"
+      ],
+      "type": "object",
+      "markdownDescription": "**spec** (object)\n\nKeycloakAuthFlowSpec defines the desired state of KeycloakAuthFlow."
+    },
+    "status": {
+      "description": "KeycloakAuthFlowStatus defines the observed state of KeycloakAuthFlow.",
+      "properties": {
+        "failureCount": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "type": "object",
+      "markdownDescription": "**status** (object)\n\nKeycloakAuthFlowStatus defines the observed state of KeycloakAuthFlow."
+    }
+  },
+  "name": "com.epam.edp.v1.v1.KeycloakAuthFlow"
+}
